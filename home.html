@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nosso Casamento</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+
+  <style>
+    nav {
+      background: #B35C42;
+      text-align: center;
+      padding: 1rem;
+    }
+    nav button {
+      background: transparent;
+      border: none;
+      color: #F5E6D3; /* nude/bege claro */
+      font-weight: bold;
+      margin: 0 1rem;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav button:hover,
+    nav button.ativo {
+      color: #F5E6D3; /* tom mais claro terra cota */
+    }
+
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+      font-family: 'Open Sans', sans-serif;
+    }
+    .modal-content {
+      background-color: #fff6f2;
+      margin: 10% auto;
+      padding: 20px 30px;
+      border-radius: 12px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(163, 84, 54, 0.6);
+      color: #6b3f25;
+      position: relative;
+    }
+    .modal-content h3 {
+      margin-top: 0;
+      font-family: 'Dancing Script', cursive;
+      color: #a35436;
+    }
+    .modal-content img {
+      margin: 15px 0;
+      border-radius: 12px;
+      box-shadow: 0 3px 7px rgba(163, 84, 54, 0.3);
+    }
+    .close {
+      color: #a35436;
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+    .close:hover {
+      color: #d9733b;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fernanda & Giordano</h1>
+    <p>29 de Agosto de 2026 | 17H</p>
+  </header>
+
+  <nav>
+    <button class="nav-btn active" onclick="mostrarAba('fotos')">Home</button>
+    <button class="nav-btn" onclick="mostrarAba('info')">Informações</button>
+    <button class="nav-btn" onclick="mostrarAba('historia')">Nossa História</button>
+    <button class="nav-btn" onclick="mostrarAba('confirmacao')">Confirmação</button>
+    <button class="nav-btn" onclick="mostrarAba('presentes')">Presentes</button>
+  </nav>
+
+  <section id="fotos" class="ativo">
+    <!-- <h2>Save the Date</h2> -->
+    
+    <div class="galeria">
+      <img src="img/foto1.jpg" alt="Foto 1">
+      <img src="img/foto2.jpg" alt="Foto 2">
+      <img src="img/foto3.jpg" alt="Foto 3">
+      <img src="img/foto4.jpg" alt="Foto 4">
+      <img src="img/foto5.jpg" alt="Foto 5">
+      <img src="img/foto6.jpg" alt="Foto 6">
+      <img src="img/foto7.jpg" alt="Foto 7">
+      <img src="img/foto8.jpg" alt="Foto 8">
+      <img src="img/foto9.jpg" alt="Foto 9">
+    </div>
+  </section>
+
+  <section id="info">
+    <h2>Informações da Festa</h2>
+    <p><strong>Data:</strong> 29 de Agosto de 2026</p>
+    <p><strong>Horário:</strong> 17:00</p>
+    <p><strong>Local:</strong> Clube das Nações</p>
+    <p><strong>Traje:</strong> Esporte fino</p>
+    <p><strong>Como chegar:</strong> <a href="https://www.google.com/maps/place/Clube+das+Na%C3%A7%C3%B5es+%2F+Restaurante/@-15.8090452,-47.8313545,17z/data=!3m1!4b1!4m6!3m5!1s0x935a234dc46153bd:0xee26ec3322f76b93!8m2!3d-15.8090452!4d-47.8313545!16s%2Fg%2F11bw21jpxp?entry=ttu&g_ep=EgoyMDI1MDYxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank">Abrir no Google Maps</a></p>
+  
+    <h3>Leve muita alegria e disposição! A cerimônia será ao ar livre.</h3>
+  </section>
+
+  <section id="historia">
+    <h2>Nossa História</h2>
+    <p>Nos conhecemos pendurados em uma parede de escalada. Desde então, dividimos cordas, rotas e muitos sonhos.</p>
+  </section>
+
+  <section id="confirmacao">
+    <h2>Confirmação de Presença</h2>
+    <form id="rsvp-form">
+      <input type="text" id="nome" placeholder="Seu nome completo" required />
+      <input type="number" id="adultos" placeholder="Adultos incluindo você" />
+      <input type="number" id="criancas" placeholder="Crianças" />
+      <textarea id="recado" placeholder="Deixe seu recado..."></textarea>
+      <div id="status"></div>
+      <button type="submit">Confirmar Presença</button>
+    </form>
+    <p id="rsvp-feedback"></p>
+  </section>
+
+  <script>
+    const form = document.getElementById('rsvp-form');
+    const statusDiv = document.getElementById('status');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const data = {
+        nome: document.getElementById('nome').value,
+        adultos: document.getElementById('adultos').value,
+        criancas: document.getElementById('criancas').value,
+        recado: document.getElementById('recado').value
+      };
+
+      fetch('https://script.google.com/macros/s/AKfycbw-zgjKvRLZkPmZtlN5R2QydsuTnThsZ3GQgV9_JK94Gq6GYKFT6fmPGKJa4zYW9SMmpw/exec', {
+        method: 'POST', 
+        mode: 'no-cors', 
+        headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+      })
+      .then(() => {
+        statusDiv.innerText = "Agradeçemos a Confirmação! "+document.getElementById('nome').value+" estamos ansioso pela sua presença!";
+        form.reset();
+      })
+      .catch(() => {
+        statusDiv.innerText = "Erro ao enviar. Tente novamente.";
+      });
+    });
+  </script>
+
+  <section id="presentes">
+    <h2>Lista de Presentes</h2>
+
+    <h3>Criamos uma lista fictícia de presentes para cada um escolher o valor que se sentir confortável!<br>Mas iremos receber a intenção de compra de cada um</h3>
+    <div class="presentes-galeria">
+      <div class="presente">
+        <img src="img/cafeteira.jpg" alt="cafeteira" />
+        <p>Cafeteira – R$ 865,49</p>
+        <button onclick="pagarPix('cafeteira', 865)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/jogo-louca.jpg" alt="jogo-louca" />
+        <p>Jogo de Louça – R$ 110,00</p>
+        <button onclick="pagarPix('jogo-louca', 110)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/lava-louca.jpg" alt="lava-louca" />
+        <p>Maquina de Lavar Louça – R$ 3.366,00</p>
+        <button onclick="pagarPix('lava-louca', 3366)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/crashpad.jpg" alt="crashpad" />
+        <p>Crashpad novo – R$ 865,49</p>
+        <button onclick="pagarPix('crashpad', 865)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/mosquetão.jpg" alt="mosquetao" />
+        <p>Mosquetão especial – R$ 110,00</p>
+        <button onclick="pagarPix('mosquetao', 110)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/magnesio.jpg" alt="magnesio" />
+        <p>Magnésio – R$ 45,00</p>
+        <button onclick="pagarPix('magnesio', 50)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/curso-relacionamento.jpg" alt="curso-relacionamento" />
+        <p>Curso: Escalando um Relacionamento – R$ 150,00</p>
+        <button onclick="pagarPix('curso-relacionamento', 150)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/curso-selva.jpg" alt="curso-selva" />
+        <p>Curso: Morando na Selva – R$ 50,00</p>
+        <button onclick="pagarPix('curso-selva', 50)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/curso-sobrevivencia.jpg" alt="curso-sobrevivencia" />
+        <p>Curso: Sobrevivendo Juntos (Avançado) – R$ 20,00</p>
+        <button onclick="pagarPix('curso-sobrevivencia', 20)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/comida-ilha.jpg" alt="comida-ilha" />
+        <p>Comida Natural em Ilha Deserta – R$ 150,00</p>
+        <button onclick="pagarPix('comida-ilha', 150)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/lanche-montanha.jpg" alt="lanche-montanha" />
+        <p>Lanche em topo de Montanha – R$ 20,00</p>
+        <button onclick="pagarPix('lanche-montanha', 20)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/spa-selvagem.jpg" alt="spa-selvagem" />
+        <p>Spa Selvagem com Aromaterapia de Mato – R$ 50,00</p>
+        <button onclick="pagarPix('spa-selvagem', 50)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/barraca.jpg" alt="barraca" />
+        <p>Barraca 5 Estrelas – R$ 150,00</p>
+        <button onclick="pagarPix('barraca', 150)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/seguro.jpg" alt="seguro" />
+        <p>Seguro Vida e Viagem pro Casal – R$ 20,00</p>
+        <button onclick="pagarPix('seguro', 20)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/reality.jpg" alt="reality" />
+        <p>Vaquinha pro nosso Reality Show – R$ 50,00</p>
+        <button onclick="pagarPix('reality', 50)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/helicoptero.jpg" alt="helicoptero" />
+        <p>Helicoptero de Resgate – R$ 150,00</p>
+        <button onclick="pagarPix('helicoptero', 150)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/felicidade.jpg" alt="felicidade" />
+        <p>Contribuição para Dias Felizes sem Motivo – Qualquer Valor</p>
+        <button onclick="pagarPix('felicidade', 20)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/historias.jpg" alt="historias" />
+        <p>Investimento em Historias para Contar – Qualquer Valor</p>
+        <button onclick="pagarPix('historias', 50)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/corda.jpg" alt="corda" />
+        <p>Corda feita de Cabelo de Unicornio Albino do Himalaia – R$ 150,00</p>
+        <button onclick="pagarPix('corda', 150)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/treinador.jpg" alt="treinador" />
+        <p>Treinador de Relacionamento com IA e voz do Alex Honald – Qualquer Valor</p>
+        <button onclick="pagarPix('treinador', 20)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/curso-emocional.jpg" alt="curso-emocional" />
+        <p>Curso para Escalada de Parede Emocional<b> Qualquer Valor</p>
+        <button onclick="pagarPix('curso-emocional', 50)">Presentear</button>
+      </div>
+    </div>
+    <div id="pix-area" style="display: none;">
+      <p>Use o QR Code abaixo para o Pix:</p>
+      <img src="img/qrpix.png" alt="QR Code Pix" width="200" />
+      <p>Ou copie a chave: <strong id="chave-pix">032.306.111-79</strong></p>
+    </div>
+  </section>
+    <!-- Modal Pix -->
+    <div id="modal-pix" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h3>Use o QR Code para o Pix</h3>
+        <p><strong>Valor do presente:</strong> R$ <span id="valor-presente"></span></p>
+        <img id="qr-pix-img" src="img/qrpix.png" alt="QR Code Pix" width="200" />
+        <p>Ou copie a chave Pix: <strong id="pix-key">032.306.111-79</strong></p>
+        <button onclick="window.open('https://link.mercadopago.com.br/casamentogife','_blank');">Ou pague no cartão<br>(somos taxados 5%)</button>
+      </div>
+    </div>
+  <script>
+    function pagarPix(presenteId, valor) {
+      const modal = document.getElementById('modal-pix');
+      const valorPresente = document.getElementById('valor-presente');
+
+      valorPresente.textContent = valor.toFixed(2).replace('.', ',');
+
+      modal.style.display = 'block';
+    }
+
+    function fecharModal() {
+      document.getElementById('modal-pix').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('modal-pix');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+
+  <footer>
+    <hr>
+    <p>Com amor, Fernanda & Giordano ❤️</p>
+  </footer>
+
+  <script>
+    function mostrarAba(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('ativo'));
+      document.getElementById(id).classList.add('ativo');
+    }
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navButtons = document.querySelectorAll('.nav-btn');
+
+      navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          navButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+    });
+  </script>
+  <script src="scripts.js"></script>
+</body>
+</html>
