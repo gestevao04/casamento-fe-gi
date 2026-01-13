@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4842803d-8e71-48a7-a1b7-e5d24d4b739d" name="Changes" comment="Initial commit">
+      <change afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/flores-direita-home.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/flores-direita.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/flores-esquerda-home.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/flores-esquerda.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/landpage-clear.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/landpage.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/logo-fg-branco.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/logo-fg-marrom.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/title.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/presentes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/curso-emocional.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/img/curso-emocional.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/foto3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/img/foto3.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/jogo-louca.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/mosqueta╠âo.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/img/mosquetao.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;gestevao04&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/gestevao04/casamento-fe-gi.git&quot;,
+    &quot;accountId&quot;: &quot;b1f56e7a-202f-470d-86bf-95241ce04041&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="30wGUQzTv7M6AN8jJTaP2pe7DWd" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/IdeaProjects/casamento-fe-gi-v2",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.keymap.KeymapConfigurable"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IdeaProjects\casamento-fe-gi-v2" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\IdeaProjects\casamento-fe-gi-v2" />
+      <recent name="D:\IdeaProjects\casamento-fe-gi-v2\img" />
+      <recent name="D:\IdeaProjects\casamento-fe-gi\img" />
+      <recent name="D:\IdeaProjects\casamento-fe-gi" />
+      <recent name="D:\IdeaProjects\casamento-fe-gi\teste\img" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="casamento-fe-gi" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="casamento-fe-gi" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4842803d-8e71-48a7-a1b7-e5d24d4b739d" name="Changes" comment="" />
+      <created>1754531236622</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1754531236622</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1754531311788</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1754531311788</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+  </component>
+</project>

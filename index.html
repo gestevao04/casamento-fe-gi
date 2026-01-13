@@ -1,88 +1,598 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bem-vindo ao Nosso Casamento</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Open+Sans&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background: #fdf6f8 url('fundo-com-pedras.jpg') no-repeat center center fixed;
-      background-size: cover;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    h1 {
-      font-family: 'Dancing Script', cursive;
-      font-size: 3rem;
-      color: #a35436; /* tom terra cota mais escuro */
-      margin-bottom: 1rem;
-    }
-    .entrada {
-      background: #f8eee7; /* nude suave */
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(163, 84, 54, 0.3);
-      text-align: center;
-      width: 320px;
-    }
-    input {
-      padding: 0.6rem;
-      margin-top: 1rem;
-      width: 100%;
-      border: 2px solid #a35436;
-      border-radius: 8px;
-      font-size: 1rem;
-      box-sizing: border-box;
-      transition: border-color 0.3s ease;
-    }
-    input:focus {
-      outline: none;
-      border-color: #d9733b;
-      background: #fff6f2;
-    }
-    button {
-      margin-top: 1.2rem;
-      padding: 0.6rem 1.2rem;
-      background: #a35436; /* terra cota */
-      color: white;
-      border: none;
-      border-radius: 25px;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(163, 84, 54, 0.4);
-      transition: background-color 0.3s ease;
-      width: 100%;
-    }
-    button:hover {
-      background: #d9733b;
-      box-shadow: 0 6px 12px rgba(217, 115, 59, 0.6);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fernanda & Giordano - 29 de Agosto de 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --terracota-escuro: #A0522D;
+            --terracota-suave: #D46F45;
+            --bege-claro: #F5E9DA;
+            --creme: #FFF7EF;
+            --branco: #FFFFFF;
+            --marrom-texto: #5A3A33;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--marrom-texto);
+            line-height: 1.6;
+        }
+
+        /* Header Hero */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)),
+                        url('img/foto4.jpg') center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--branco);
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .hero .date {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            letter-spacing: 1px;
+        }
+
+        .hero .btn-primary {
+            background: var(--branco);
+            color: var(--terracota-escuro);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .hero .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Nossa História */
+        .nossa-historia {
+            background: var(--bege-claro);
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--marrom-texto);
+            font-weight: 400;
+        }
+
+        .historia-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+        }
+
+        .historia-item {
+            text-align: center;
+        }
+
+        .historia-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #e0d5c7, #c9b8a5);
+        }
+
+        .historia-circle img {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .historia-viagem {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #e0d5c7, #c9b8a5);
+        }
+
+        .historia-viagem img {
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .historia-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--marrom-texto);
+        }
+
+        /* Informações do Casamento */
+        .info-casamento {
+            background: var(--creme);
+            padding: 5rem 2rem;
+        }
+
+        .info-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: var(--branco);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--marrom-texto);
+        }
+
+        .info-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--marrom-texto);
+        }
+
+        .info-time {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+            color: var(--terracota-escuro);
+        }
+
+        .info-local {
+            font-size: 1rem;
+            color: var(--marrom-texto);
+        }
+
+        .info-local-sub {
+            font-size: 0.9rem;
+            color: #8B7267;
+            margin-top: 0.3rem;
+        }
+
+        /* Confirme Presença */
+        .rsvp {
+            background: var(--terracota-suave);
+            padding: 5rem 2rem;
+        }
+
+        .rsvp .section-title {
+            color: var(--branco);
+        }
+
+        .rsvp-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .rsvp-form {
+            background: rgba(255,255,255,0.95);
+            padding: 2.5rem;
+            border-radius: 12px;
+        }
+
+        .rsvp-form h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--marrom-texto);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.9rem;
+            border: 1px solid #d4c5b9;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background: var(--branco);
+            color: var(--marrom-texto);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--terracota-escuro);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .radio-group input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--branco);
+            color: var(--terracota-escuro);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: var(--creme);
+            transform: translateY(-2px);
+        }
+
+        /* Lista de Presentes */
+        .lista-presentes {
+            background: rgba(255,255,255,0.95);
+            padding: 2.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .lista-presentes h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--marrom-texto);
+        }
+
+        .qr-container {
+            background: var(--branco);
+            padding: 2rem;
+            border-radius: 12px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .qr-code {
+            width: 180px;
+            height: 180px;
+            background: #f0f0f0;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--marrom-texto);
+            border-radius: 12px;
+
+        }
+
+        .qr-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--marrom-texto);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--terracota-escuro);
+            color: var(--branco);
+            text-align: center;
+            padding: 2.5rem 2rem;
+        }
+
+        footer p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        footer .date-footer {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Mensagem de sucesso */
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* Mensagem de sucesso */
+        .alert-message {
+            display: none;
+            background: #f44336;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .alert-message.show {
+            display: block;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero .date {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .rsvp-container {
+                grid-template-columns: 1fr;
+            }
+
+            .historia-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .title-img {
+              transform: translate(0%, -20%);
+              margin-left: auto;
+              margin-right: auto;
+              width: 95%; /* Or any width less than 100% */
+            }
+        }
+
+        .present-img {
+          width: 90%; /* Or any width less than 100% */
+          margin-bottom: -11%;
+        }
+    </style>
 </head>
 <body>
-  <div class="entrada">
-    <h1>Bem-vindo(a)</h1>
-    <p>Insira a senha para acessar nosso site:</p>
-    <input id="senha" type="password" placeholder="Senha" />
-    <button onclick="verificar()">Entrar</button>
-  </div>
-  <script>
-    function verificar() {
-      const senha = document.getElementById('senha').value;
-      if (senha === 'GigiFefe' || senha === 'Gigifefe' || senha === 'gigifefe') {
-        window.location.href = 'home.html';
-      } else {
-        alert('Senha incorreta');
-      }
-    }
-  </script>
+<!-- Hero Section -->
+<section class="hero">
+    <img src="img/title.svg" alt="F+G" class="title-img"><br>
+    <a href="#historia" class="btn-primary">Veja detalhes</a>
+</section>
+
+<!-- Nossa História -->
+<section class="nossa-historia" id="historia">
+    <h2 class="section-title">Nossa história</h2>
+    <div class="historia-container">
+        <div class="historia-item">
+            <div class="historia-circle">
+                <img src="img/foto1.jpg" alt="Como nos conhecemos">
+            </div>
+            <h3>Como nos conhecemos</h3>
+        </div>
+        <div class="historia-item">
+            <div class="historia-viagem">
+                <img src="img/foto3.jpg" alt="Primeira viagem">
+            </div>
+            <h3>Primeira viagem</h3>
+        </div>
+        <div class="historia-item">
+            <div class="historia-circle">
+                <img src="img/foto6.jpg" alt="Pedido">
+            </div>
+            <h3>Pedido</h3>
+        </div>
+        <div class="historia-item">
+            <div class="historia-circle">
+                <img src="img/foto5.jpg" alt="Até o grande dia">
+            </div>
+            <h3>Até o grande dia</h3>
+        </div>
+    </div>
+</section>
+
+<!-- Informações do Casamento -->
+<section class="info-casamento">
+    <h2 class="section-title">Informações do casamento</h2>
+    <div class="info-container">
+        <div class="info-card">
+            <div class="info-icon">🎩👗</div>
+            <h3>Traje</h3>
+            <p class="info-time">18:00</p>
+            <p class="info-local">Clube das Nações</p>
+            <p class="info-local-sub">Salão Principal</p>
+        </div>
+        <div class="info-card">
+            <div class="info-icon">🕐</div>
+            <h3>Cerimônia</h3>
+            <p class="info-time">16:30</p>
+            <p class="info-local">Clube das Nações</p>
+            <p class="info-local-sub">Gazebo</p>
+        </div>
+        <div class="info-card">
+            <div class="info-icon">🍷</div>
+            <h3>Recepção</h3>
+            <p class="info-time">18:00</p>
+            <p class="info-local">Clube das Nações</p>
+            <p class="info-local-sub">Salão Principal</p>
+        </div>
+    </div>
+</section>
+
+<!-- RSVP e Lista de Presentes -->
+<section class="rsvp">
+    <h2 class="section-title">Confirme presença</h2>
+    <div class="rsvp-container">
+        <div class="rsvp-form">
+            <h3>Confirme presença</h3>
+            <div class="success-message" id="successMessage">
+                Confirmação enviada com sucesso! Obrigado! 💖
+            </div>
+            <div class="alert-message" id="alertMessage">
+                Erro ao enviar. Tente novamente. ⚠️
+            </div>
+            <form id="rsvpForm">
+                <div class="form-group">
+                    <input type="text" id="nome" placeholder="Nome" required>
+                </div>
+                <div class="form-group">
+                    <select id="acompanhantes" required>
+                        <option value="">Nº de acompanhantes</option>
+                        <option value="0">Apenas eu</option>
+                        <option value="1">1 acompanhante</option>
+                        <option value="2">2 acompanhantes</option>
+                        <option value="3">3 acompanhantes</option>
+                        <option value="4">4 acompanhantes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="restricoes" placeholder="Restrições alimentares">
+                </div>
+                <div class="form-group">
+                    <textarea type="text" id="recado" placeholder="Recado para os noivos"></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Enviar</button>
+            </form>
+        </div>
+
+        <script>
+            document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+              e.preventDefault();
+
+              const data = {
+                nome: document.getElementById('nome').value,
+                adultos: document.getElementById('acompanhantes').value,
+                criancas: document.getElementById('restricoes').value,
+                recado: document.getElementById('recado').value
+              };
+
+              fetch('https://script.google.com/macros/s/AKfycbw-zgjKvRLZkPmZtlN5R2QydsuTnThsZ3GQgV9_JK94Gq6GYKFT6fmPGKJa4zYW9SMmpw/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+              })
+              .then(() => {
+                const successMessage = document.getElementById('successMessage');
+                successMessage.classList.add('show');
+                this.reset();
+
+                // Esconder mensagem após 5 segundos
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+              })
+              .catch(() => {
+                const alertMessage = document.getElementById('alertMessage');
+                alertMessage.classList.add('show');
+
+                // Esconder mensagem após 5 segundos
+                setTimeout(() => {
+                    alertMessage.classList.remove('show');
+                }, 5000);
+              });
+            });
+        </script>
+
+        <div class="lista-presentes">
+            <h3>Lista de presentes</h3>
+            <div class="qr-container">
+                <div class="qr-code" onclick="window.location.href='presentes.html';">
+                    <img src="img/present.png" alt="present" class="present-img">
+                </div>
+                <p class="qr-text">Acesse nossa lista</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>Fernanda & Giordano</p>
+    <p class="date-footer">29 de Agosto de 2026</p>
+</footer>
+
+<script>
+    // Scroll suave para âncoras
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>

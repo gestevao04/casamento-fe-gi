@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nosso Casamento</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+
+  <style>
+    nav {
+      background: #F5E9DA;
+      text-align: center;
+      padding: 1rem;
+    }
+    nav button {
+      background: transparent;
+      border: none;
+      color: #F5E6D3; /* nude/bege claro */
+      font-weight: bold;
+      margin: 0 1rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: color 0.3s ease;
+    }
+
+    nav button:hover,
+    nav button.ativo {
+      color: #A0522D; /* tom mais claro terra cota */
+    }
+
+
+    .sticky {
+      position: sticky;
+      top: 0;
+    }
+
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+      font-family: 'Playfair Display', serif;
+    }
+    .modal-content {
+      background-color: #fff6f2;
+      margin: 10% auto;
+      padding: 20px 30px;
+      border-radius: 12px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(163, 84, 54, 0.6);
+      color: #6b3f25;
+      position: relative;
+    }
+    .modal-content h3 {
+      margin-top: 0;
+      font-family: 'Playfair Display', serif;
+      color: #a35436;
+    }
+    .modal-content img {
+      margin: 15px 0;
+      border-radius: 12px;
+      box-shadow: 0 3px 7px rgba(163, 84, 54, 0.3);
+    }
+    .close {
+      color: #a35436;
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+    .close:hover {
+      color: #d9733b;
+    }
+    .logo{
+      width: 20%;
+    }
+    @media (max-width: 600px) {
+      .logo{
+        width: 70%;
+      }
+    }
+  </style>
+</head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<body>
+  <header>
+    <img src="img/logo-fg-marrom.svg" class="logo" alt="cafeteira" />
+  </header>
+
+  <nav class="sticky">
+    <button class="nav-btn" onclick="window.location.href='index.html';">Volte para a Página Principal</button>
+  </nav>
+
+  <section id="presentes" class="ativo">
+    <h2>Lista de Presentes</h2>
+
+    <h3>Criamos uma lista fictícia de presentes para cada um escolher o valor que se sentir confortável!<br>Mas iremos receber a intenção de compra de cada um</h3>
+    <div class="presentes-galeria">
+      <div class="presente">
+        <img src="img/faqueiro.jpg" alt="faqueiro" />
+        <p>Faqueiro 72 pçs Tramontina<br>R$ 630,00</p>
+        <button onclick="pagarPix('faqueiro', 630)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/jogo-jantar.jpg" alt="jogo-jantar" />
+        <p>Jogo de Jantar Tania Bulhões<br>R$ 3240,00</p>
+        <button onclick="pagarPix('jogo-jantar', 110)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/jogo-toalha.jpg" alt="jogo-toalha" />
+        <p>Jogo de Toalha Trussardi<br>R$ 575,00</p>
+        <button onclick="pagarPix('jogo-toalha', 575)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/jogo-cama.jpg" alt="jogo-cama" />
+        <p>Jogo Queen Trussardi 200 Fios<br>R$ 1300,00</p>
+        <button onclick="pagarPix('jogo-cama', 1300)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/cafeteira.jpg" alt="cafeteira" />
+        <p>Cafeteira dos Sonhos<br>R$ 865,00</p>
+        <button onclick="pagarPix('cafeteira', 865)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/lava-louca.jpg" alt="lava-louca" />
+        <p>Nossa Primeira de Lava Louça<br>R$ 3.366,00</p>
+        <button onclick="pagarPix('lava-louca', 3366)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/felicidade.jpg" alt="felicidade" />
+        <p>Contribuição para Dias Felizes sem Motivo<br>Qualquer Valor</p>
+        <button onclick="pagarPix('felicidade', 0)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/crashpad.jpg" alt="crashpad" />
+        <p>Crashpad Novo (Testado & Aprovado)<br>R$ 1860,00</p>
+        <button onclick="pagarPix('crashpad', 1860)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/mosquetao.jpg" alt="mosquetao" />
+        <p>Mosquetão Especial<br>R$ 180,00</p>
+        <button onclick="pagarPix('mosquetao', 180)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/magnesio.jpg" alt="magnesio" />
+        <p>Magnésio (Pó Branco)<br>R$ 87,00</p>
+        <button onclick="pagarPix('magnesio', 87)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/curso-relacionamento.jpg" alt="curso-relacionamento" />
+        <p>Curso: Escalando um Relacionamento<br>R$ 230,00</p>
+        <button onclick="pagarPix('curso-relacionamento', 230)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/curso-sobrevivencia.jpg" alt="curso-sobrevivencia" />
+        <p>Curso: Sobrevivendo Juntos (Avançado)<br>R$ 180,00</p>
+        <button onclick="pagarPix('curso-sobrevivencia', 180)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/curso-selva.jpg" alt="curso-selva" />
+        <p>Curso: Morando na Selva<br>R$ 150,00</p>
+        <button onclick="pagarPix('curso-selva', 150)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/comida-ilha.jpg" alt="comida-ilha" />
+        <p>Comida Natural em Ilha Deserta<br>R$ 210,00</p>
+        <button onclick="pagarPix('comida-ilha', 210)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/lanche-montanha.jpg" alt="lanche-montanha" />
+        <p>Lanche em topo de Montanha<br>R$ 400,00</p>
+        <button onclick="pagarPix('lanche-montanha', 400)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/barraca.jpg" alt="barraca" />
+        <p>Barraca 5 Estrelas<br>R$ 340,00</p>
+        <button onclick="pagarPix('barraca', 340)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/reality.jpg" alt="reality" />
+        <p>Vaquinha pro nosso Reality Show<br>R$ 99,00</p>
+        <button onclick="pagarPix('reality', 99)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/helicoptero.jpg" alt="helicoptero" />
+        <p>Helicoptero de Resgate<br>R$ 666,00</p>
+        <button onclick="pagarPix('helicoptero', 666)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/spa-selvagem.jpg" alt="spa-selvagem" />
+        <p>Spa Selvagem com Aromaterapia de Mato<br>R$ 650,00</p>
+        <button onclick="pagarPix('spa-selvagem', 650)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/historias.jpg" alt="historias" />
+        <p>Investimento em Historias para Contar<br>Qualquer Valor</p>
+        <button onclick="pagarPix('historias', 0)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/corda.jpg" alt="corda" />
+        <p>Corda feita de Cabelo de Unicornio Albino do Himalaia<br>R$ 1000,00</p>
+        <button onclick="pagarPix('corda', 1000)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/treinador.jpg" alt="treinador" />
+        <p>Treinador de Relacionamento com IA e voz do Alex Honald<br>R$ 560,00</p>
+        <button onclick="pagarPix('treinador', 560)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/jeep.jpg" alt="jeep" />
+        <p>Jeep para Trilhas Radicais - R$ 720,00</p>
+        <button onclick="pagarPix('jeep', 720)">Presentear</button>
+      </div>
+      <div class="presente">
+        <img src="img/curso-emocional.jpg" alt="curso-emocional" />
+        <p>Curso para Escalada de Parede Emocional - Qualquer Valor</p>
+        <button onclick="pagarPix('curso-emocional', 0)">Presentear</button>
+      </div>
+    </div>
+    <div id="pix-area" style="display: none;">
+      <p>Use o QR Code abaixo para o Pix:</p>
+      <img src="img/qrpix.png" alt="QR Code Pix" width="200" />
+      <p>Ou copie a chave: <strong id="chave-pix">032.306.111-79</strong></p>
+    </div>
+  </section>
+    <!-- Modal Pix -->
+    <div id="modal-pix" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h3>Use o QR Code para o Pix</h3>
+        <p><strong>Valor do presente:</strong> R$ <span id="valor-presente"></span></p>
+        <img id="qr-pix-img" src="img/qrpix.png" alt="QR Code Pix" width="200" />
+        <p>Ou copie a chave Pix: <strong id="pix-key">032.306.111-79</strong></p>
+        <button onclick="window.open('https://link.mercadopago.com.br/casamentogife','_blank');">Ou pague no cartão<br>(somos taxados 5%)</button>
+      </div>
+    </div>
+  <script>
+    function pagarPix(presenteId, valor) {
+      const modal = document.getElementById('modal-pix');
+      const valorPresente = document.getElementById('valor-presente');
+
+      valorPresente.textContent = valor.toFixed(2).replace('.', ',');
+
+      modal.style.display = 'block';
+    }
+
+    function fecharModal() {
+      document.getElementById('modal-pix').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('modal-pix');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+
+  <footer>
+    <hr>
+    <p>Com amor, Fernanda & Giordano ❤️</p>
+  </footer>
+
+  <script>
+    function mostrarAba(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('ativo'));
+      document.getElementById(id).classList.add('ativo');
+    }
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navButtons = document.querySelectorAll('.nav-btn');
+
+      navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          navButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+    });
+  </script>
+  <script src="scripts.js"></script>
+</body>
+</html>

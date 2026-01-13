@@ -1,0 +1,160 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Georgia', serif;
+  color: #fff;
+  background: #000;
+}
+
+.logo {
+  font-family: 'Georgia', serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Pages */
+.page {
+  display: none;
+  min-height: 100vh;
+  padding-top: 80px; /* espaço para o header fixo */
+}
+
+.page.active {
+  display: block;
+}
+
+/* Dark Home */
+.dark {
+  background: url("../img/landpage.svg") no-repeat center center/cover;
+  background-position: bottom
+  color: #fff;
+}
+
+.dark .overlay {
+  text-align: center;
+}
+
+.dark h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* Light Pages */
+.light {
+  background: #fdf6f2;
+  color: #8c4a3b;
+  padding: 5% 10%;
+}
+
+.light h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+form input, form select, form button {
+  display: block;
+  margin: 10px 0;
+  padding: 0.6rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  transition: background 0.3s, color 0.3s;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  padding: 1rem 2rem;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a.active {
+  font-weight: bold;
+  border-bottom: 2px solid currentColor;
+}
+
+/* Header na Home (escuro) */
+header.dark-header {
+  background: transparent; /* fica sobre a foto */
+  color: #fff;
+}
+
+header.dark-header nav a {
+  color: #fff;
+}
+
+/* Header nas páginas claras */
+header.light-header {
+  background: #fdf6f2;
+  color: #8c4a3b;
+}
+
+header.light-header nav a {
+  color: #8c4a3b;
+}
+
+/* Logo */
+.logo-img {
+  height: 150px;
+  width: auto;
+  display: none;
+}
+
+/* Logo */
+.title-img {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%; /* Or any width less than 100% */
+}
+
+header.dark-header .dark-logo {
+  display: block;
+}
+
+header.light-header .light-logo {
+  display: block;
+}
+
+.corner-flower {
+  height: 30%;
+}
+
+.corner-flower-white {
+  height: 60%;
+}
+
+.left {
+  position: fixed; /* ou absolute se quiser fixar em relação ao contêiner pai */
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.right {
+  position: fixed; /* ou absolute */
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+}
