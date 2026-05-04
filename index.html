@@ -92,6 +92,15 @@
             font-weight: 400;
         }
 
+        .dialog-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.0rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--marrom-texto);
+            font-weight: 400;
+        }
+
         .historia-container {
             max-width: 1100px;
             margin: 0 auto;
@@ -416,6 +425,48 @@
           width: 90%; /* Or any width less than 100% */
           margin-bottom: -11%;
         }
+
+        .historia-dialog {
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px; /* allow some space on small screens so dialog can shrink */
+        }
+
+        .historia-dialog-content {
+            background: var(--branco);
+            padding: 1rem 1rem;
+            border-radius: 16px;
+            /* Variable width: grows/shrinks with viewport, but bounded */
+            width: clamp(500px, 80vw, 900px);
+            max-width: 95vw;
+            /* Limit height and allow internal scrolling for long content */
+            max-height: 85vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        }
+
+        /* Ensure images inside dialog scale properly and do not create horizontal scroll */
+        .historia-dialog-content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 1rem;
+        }
+
+        .historia-dialog-close {
+            position: absolute;
+            top: 1rem; right: 1.5rem;
+            font-size: 2rem;
+            color: var(--terracota-escuro);
+            cursor: pointer;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -429,32 +480,64 @@
 <section class="nossa-historia" id="historia">
     <h2 class="section-title">Nossa história</h2>
     <div class="historia-container">
-        <div class="historia-item">
+        <a class="historia-item" href="#como-nos-conhecemos" style="text-decoration:none; color:inherit; cursor:pointer;">
             <div class="historia-circle">
                 <img src="img/foto1.jpg" alt="Como nos conhecemos">
             </div>
             <h3>Como nos conhecemos</h3>
-        </div>
-        <div class="historia-item">
-            <div class="historia-viagem">
-                <img src="img/foto3.jpg" alt="Primeira viagem">
-            </div>
-            <h3>Primeira viagem</h3>
-        </div>
-        <div class="historia-item">
+        </a>
+        <a class="historia-item" href="#pedido" style="text-decoration:none; color:inherit; cursor:pointer;">
             <div class="historia-circle">
                 <img src="img/foto6.jpg" alt="Pedido">
             </div>
             <h3>Pedido</h3>
-        </div>
-        <div class="historia-item">
+        </a>
+        <a class="historia-item" href="#ate-o-grande-dia" style="text-decoration:none; color:inherit; cursor:pointer;">
             <div class="historia-circle">
                 <img src="img/foto5.jpg" alt="Até o grande dia">
             </div>
             <h3>Até o grande dia</h3>
-        </div>
+        </a>
     </div>
 </section>
+
+<!-- Seções detalhadas de cada momento como pop-ups -->
+<div id="historia-dialog" class="historia-dialog" style="display:none;">
+    <div class="historia-dialog-content">
+        <span class="historia-dialog-close" onclick="closeDialog()">&times;</span>
+        <h2 class="dialog-title" id="historia-dialog-title"></h2>
+        <div id="historia-dialog-body"></div>
+    </div>
+</div>
+
+<!-- Até o grande dia -->
+<section id="ate-o-grande-dia" style="background:var(--bege-claro);padding:4rem 2rem;">
+    <div style="max-width:800px;margin:0 auto;text-align:center;">
+        <div id="countdown-ate-o-grande-dia" style="font-size:2.5rem;font-weight:bold;color:var(--terracota-escuro);margin:2rem 0;"></div>
+        <p style="font-size:1.2rem;color:var(--marrom-texto);">Faltam poucos dias para celebrarmos juntos!</p>
+    </div>
+</section>
+<script>
+(function() {
+    function updateCountdown() {
+        const eventDate = new Date('2026-08-29T16:30:00-03:00');
+        const now = new Date();
+        const diff = eventDate - now;
+        if (diff <= 0) {
+            document.getElementById('countdown-ate-o-grande-dia').innerHTML = 'Chegou o grande dia!';
+            return;
+        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+        document.getElementById('countdown-ate-o-grande-dia').innerHTML =
+            days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+})();
+</script>
 
 <!-- Informações do Casamento -->
 <section class="info-casamento">
@@ -498,49 +581,89 @@
             </div>
             <form id="rsvpForm">
                 <div class="form-group">
-                    <input type="text" id="nome" placeholder="Nome" required>
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" list="guest-list" placeholder="Digite ou selecione seu nome" required>
+                    <datalist id="guest-list"></datalist>
                 </div>
                 <div class="form-group">
-                    <select id="acompanhantes" required>
-                        <option value="">Nº de acompanhantes</option>
-                        <option value="0">Apenas eu</option>
-                        <option value="1">1 acompanhante</option>
-                        <option value="2">2 acompanhantes</option>
-                        <option value="3">3 acompanhantes</option>
-                        <option value="4">4 acompanhantes</option>
-                    </select>
-                </div>
-                <div class="form-group">
+                    <label for="restricoes">Restrições alimentares</label>
                     <input type="text" id="restricoes" placeholder="Restrições alimentares">
                 </div>
                 <div class="form-group">
-                    <textarea type="text" id="recado" placeholder="Recado para os noivos"></textarea>
+                    <label for="recado">Recado para os noivos</label>
+                    <textarea id="recado" placeholder="Recado para os noivos"></textarea>
                 </div>
                 <button type="submit" class="btn-submit">Enviar</button>
             </form>
         </div>
 
         <script>
+            // Lista de convidados (edite conforme necessário)
+            const invitedNames = [
+                'Fernanda Silva',
+                'Giordano Souza',
+                'Ana Pereira',
+                'João Oliveira',
+                'Mariana Costa',
+                'Carlos Eduardo',
+                'Patrícia Rocha'
+            ];
+
+            // Populate datalist with invited names on page load
+            window.addEventListener('DOMContentLoaded', function() {
+                const guestList = document.getElementById('guest-list');
+                invitedNames.forEach(name => {
+                    const option = document.createElement('option');
+                    option.value = name;
+                    guestList.appendChild(option);
+                });
+            });
+
             document.getElementById('rsvpForm').addEventListener('submit', function(e) {
               e.preventDefault();
 
+              const nameEl = document.getElementById('nome');
+              const restricoesEl = document.getElementById('restricoes');
+              const recadoEl = document.getElementById('recado');
+
+              const rawName = (nameEl && nameEl.value) ? nameEl.value.trim() : '';
+
+              // Validate presence
+              if (!rawName) {
+                const alertMessage = document.getElementById('alertMessage');
+                alertMessage.textContent = 'Por favor, selecione seu nome na lista.';
+                alertMessage.classList.add('show');
+                setTimeout(() => alertMessage.classList.remove('show'), 5000);
+                return;
+              }
+
+              // Check if name exists in invited list (exact match from datalist)
+              const matched = invitedNames.includes(rawName);
+
+              if (!matched) {
+                const alertMessage = document.getElementById('alertMessage');
+                alertMessage.textContent = 'Por favor, selecione um nome válido da lista.';
+                alertMessage.classList.add('show');
+                setTimeout(() => alertMessage.classList.remove('show'), 5000);
+                return;
+              }
+
+              // If matched, proceed to send data
               const data = {
-                nome: document.getElementById('nome').value,
-                adultos: document.getElementById('acompanhantes').value,
-                criancas: document.getElementById('restricoes').value,
-                recado: document.getElementById('recado').value
+                nome: rawName,
+                restricoes: restricoesEl ? restricoesEl.value : '',
+                recado: recadoEl ? recadoEl.value : ''
               };
 
               fetch('https://script.google.com/macros/s/AKfycbw-zgjKvRLZkPmZtlN5R2QydsuTnThsZ3GQgV9_JK94Gq6GYKFT6fmPGKJa4zYW9SMmpw/exec', {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(data)
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
               })
               .then(() => {
                 const successMessage = document.getElementById('successMessage');
+                successMessage.textContent = 'Confirmação enviada com sucesso! Obrigado! 💖';
                 successMessage.classList.add('show');
                 this.reset();
 
@@ -551,6 +674,7 @@
               })
               .catch(() => {
                 const alertMessage = document.getElementById('alertMessage');
+                alertMessage.textContent = 'Erro ao enviar. Tente novamente mais tarde.';
                 alertMessage.classList.add('show');
 
                 // Esconder mensagem após 5 segundos
@@ -559,7 +683,7 @@
                 }, 5000);
               });
             });
-        </script>
+         </script>
 
         <div class="lista-presentes">
             <h3>Lista de presentes</h3>
@@ -580,17 +704,92 @@
 </footer>
 
 <script>
-    // Scroll suave para âncoras
+    // Scroll suave para âncoras (apenas para âncoras que existem na página)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const href = this.getAttribute('href');
+            const target = document.querySelector(href);
+            // Só intercepta quando o alvo realmente existe na página (scroll suave).
             if (target) {
+                e.preventDefault();
                 target.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
             }
+            // Se não existir, não impedir o evento: outro handler pode abrir um diálogo.
+        });
+    });
+
+    // Centralized dialog content map
+    const historiaContent = {
+        'como-nos-conhecemos': {
+            title: 'Como nos conhecemos',
+            img: 'img/foto1.jpg',
+            html: `<p>Podem até brincar e perguntar: “Debaixo de que pedra vocês se conheceram?”. No nosso caso, isso é quase literal. Nós a chamamos de <i>Pedrão da Ecovila</i>, vocês podem reconhecer como <i>“essa aí das fotos”</i>. Foi ali que, pela primeira vez, nos perdemos na troca de olhares e nos deixamos levar por uma conversa sem fim.</p>
+                <br><p>Mas a história começa um pouco antes.</p>
+                <br><p>No primeiro dia em que nos vimos, durante um torneio amador na academia de escalada, uma amiga em comum (Aninha) nos apresentou rapidamente. Deu tempo apenas para o Gi se apresentar e mandar um clássico: “acho que caiu algo no meu olho, você pode dar uma olhada?”. A Fê chegou bem pertinho, analisou com atenção… e não caiu no charminho, disse que não tinha nada.</p>
+                <br><p>No dia seguinte, porém, o Gi acordou com um verdadeiro “melão” no lugar do olho (conjuntivite). Ele ia ajudar a Aninha com uma mudança em Cocal, mas precisou adiar. Foi justamente isso que acabou nos colocando na mesma casinha no fim de semana seguinte, alguns podem chamar de destino.</p>
+                <br><p>Quando finalmente chegamos em Cocal, foi debaixo do Pedrão da Ecovila que nos conhecemos de verdade. Escalamos juntos, trocamos olhares e até comentamos com amigos sobre o interesse um pelo outro. No fim do dia, já na casa da Aninha, ela simplesmente olhou para nós e disse: “<b>vocês dois programam, conversem.</b>” Foi o suficiente. Começamos ali uma conversa que nunca mais terminou.</p>
+                <br><p>Descobrimos que, além de gostarmos de escalar e trabalharmos com programação, ainda morávamos muito perto um do outro. A partir disso vieram os planos, as caronas, as viagens, os sonhos e tudo o que, hoje, vem se tornando realidade.</p>`
+        },
+        'pedido': {
+            title: 'Pedido',
+            img: 'img/foto6.jpg',
+            html: `<p>Três meses antes do pedido, o Gi já estava pensando no como, quando e onde. Começou a pedir opiniões para amigas, irmãs da Fê e primas, tudo para escolher o anel perfeito.</p>
+                <br><p>Durante o planejamento de uma viagem, encontramos um lugar chamado Cidade de Pedra (Adršpach, República Tcheca), onde foram filmadas cenas de As Crônicas de Nárnia. Naquele momento, pareceu que não poderia ser em outro lugar.</p>
+                <br><p>No dia anterior, conhecemos algumas pessoas da região e, com a ajuda de um tradutor, o Gi contou o plano em tcheco. Eles ficaram animados, mas também preocupados, porque não tínhamos nada muito planejado além de chegar lá. Falaram sobre lotação, ingressos, estacionamento… e, de repente, bateu o nervosismo. Com a ajuda deles, conseguimos ingressos para o último horário disponível.</p>
+                <br><p>Quando chegou o dia, corremos para entrar no primeiro grupo do parque. O estacionamento foi tranquilo, mas lá dentro a história foi outra. A cada cinco segundos, a Fê parava para tirar fotos e não entendia a pressa do Gi para chegar a uma caverna específica no meio do caminho. Em certo momento, ela ainda escolheu o trajeto mais longo e parava em cada vista bonita para admirar. E eram muitas.</p>
+                <br><p>Quando finalmente chegamos à caverna, o Gi, já ansioso, disse que queria gravar um vídeo. Mas tinha gente demais e não ia dar certo.</p>
+                <br><p>Vale dizer que a Fê não suspeitou de nada, estava "caçando borboletas" e aproveitando o lugar. Nem estranhou quando o Gi falou para sairmos dali, mesmo tendo passado a manhã inteira dizendo que queria conhecer justamente aquela caverna.</p>
+                <br><p>Saímos, fizemos um lanche e conversamos um pouco, enquanto o Gi não parava de olhar para a entrada da caverna. Até que, de repente, ele interrompeu a conversa: “já faz alguns minutos que ninguém entra lá… vamos de novo?”. Mesmo achando curioso, a Fê topou.</p>
+                <br><p>De volta à caverna, o plano quase desmoronou. O Gi correu para tentar posicionar a câmera (sem sucesso nas primeiras tentativas), tentou tirar o casaco para pegar o anel no bolso interno (o zíper travou), mas, quando começaram a ouvir pessoas se aproximando, a Fê estendeu a mão achando que iam gravar um vídeo dançando.</p>
+                <br><p>Foi nesse momento que o Gi se ajoelhou e fez o pedido.</p>
+                <br><p>A Fê respondeu: “sério?”. E, quase ao mesmo tempo, os dois disseram: “claro que sim”.</p>
+                <br><p>Nos abraçamos, e logo em seguida alguns turistas entraram na caverna aplaudindo em tcheco.</p>`
+        }
+    };
+
+    // Função para abrir o diálogo centralizado por chave
+    function openDialog(key) {
+        const modal = document.getElementById('historia-dialog');
+        const data = historiaContent[key];
+        if (!data) return;
+        document.getElementById('historia-dialog-title').textContent = data.title;
+        document.getElementById('historia-dialog-body').innerHTML = data.html;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Função para fechar pop-up centralizado
+    function closeDialog() {
+        const modal = document.getElementById('historia-dialog');
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    // Associar botões dos círculos aos diálogos centralizados
+    window.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.historia-item').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (!href || !href.startsWith('#')) return;
+                const key = href.slice(1);
+                // allow anchor to work normally for the section 'ate-o-grande-dia'
+                if (key === 'ate-o-grande-dia') return;
+                e.preventDefault();
+                openDialog(key);
+            });
+        });
+
+        // Close modal when clicking outside content
+        document.getElementById('historia-dialog').addEventListener('click', function(e) {
+            if (e.target === this) closeDialog();
+        });
+
+        // Close with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeDialog();
         });
     });
 </script>
