@@ -3,7 +3,7 @@
   --cor-terra-cota: #a25035;
   --cor-nude-claro: #e2b7a4;
   --cor-terra-cota-escuro: #5F5E9DA;
-  --cor-texto: #d76e53;
+  --cor-texto: var(--cor-terra-cota);
   --cor-botao: var(--cor-terra-cota);
   --cor-botao-hover: var(--cor-terra-cota-escuro);
   --cor-fundo-input: #fff7f0;
@@ -89,7 +89,6 @@ section {
   max-width: 900px;
   margin: 0 auto 3rem auto;
   background: #FFF7EF;
-  box-shadow: 0 8px 15px rgba(210, 125, 84, 0.2);
 }
 
 section.ativo {

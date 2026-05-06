@@ -9,11 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --terracota-escuro: #A0522D;
-            --terracota-suave: #D46F45;
-            --bege-claro: #F5E9DA;
+            --terracota-escuro: #a76647;
+            --terracota-suave: #e5d4c7;
+            --bege-claro: #fbf1e4;
             --creme: #FFF7EF;
             --branco: #FFFFFF;
+            --terracota-texto: #A0522D;
             --marrom-texto: #5A3A33;
         }
 
@@ -80,7 +81,7 @@
         /* Nossa História */
         .nossa-historia {
             background: var(--bege-claro);
-            padding: 5rem 2rem;
+            padding: 5rem 2rem 0rem 2rem;
         }
 
         .section-title {
@@ -88,7 +89,7 @@
             font-size: 2.8rem;
             text-align: center;
             margin-bottom: 4rem;
-            color: var(--marrom-texto);
+            color: var(--terracota-escuro);
             font-weight: 400;
         }
 
@@ -175,17 +176,23 @@
             transform: translateY(-5px);
         }
 
-        .info-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--marrom-texto);
-        }
-
         .info-card h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.6rem;
             margin-bottom: 1rem;
             color: var(--marrom-texto);
+        }
+
+        .info-icon {
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             margin-bottom: 1rem;
+        }
+
+        .info-icon img {
+            height: 100px;
+            width: auto;
         }
 
         .info-time {
@@ -208,12 +215,12 @@
 
         /* Confirme Presença */
         .rsvp {
-            background: var(--terracota-suave);
+            background: var(--terracota-escuro);
             padding: 5rem 2rem;
         }
 
         .rsvp .section-title {
-            color: var(--branco);
+            color: var(--terracota-suave);
         }
 
         .rsvp-container {
@@ -379,9 +386,21 @@
             box-shadow: 0 4px 12px rgba(160, 82, 45, 0.3);
         }
 
+        .rounded-border {
+            font-family: 'Inter', sans-serif;
+            padding: 2.5rem 2rem;
+            margin: 0 auto;
+            text-align: center;
+            border-width: 1px;
+            border-style: solid;
+            background: var(--terracota-suave);
+            border-color: var(--terracota-suave); /* Cor preta com 10% de opacidade */
+            border-radius: 15px;             /* Define o arredondamento dos cantos */
+            }
+
         /* Lista de Presentes */
         .lista-presentes {
-            background: rgba(255,255,255,0.95);
+            background: var(--creme);
             padding: 2.5rem;
             border-radius: 12px;
             text-align: center;
@@ -395,7 +414,7 @@
         }
 
         .qr-container {
-            background: var(--branco);
+            background: var(--creme);
             padding: 2rem;
             border-radius: 12px;
             display: inline-block;
@@ -405,13 +424,10 @@
         .qr-code {
             width: 180px;
             height: 180px;
-            background: #f0f0f0;
             margin: 0 auto 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 3px solid var(--marrom-texto);
-            border-radius: 12px;
 
         }
 
@@ -501,11 +517,6 @@
             }
         }
 
-        .present-img {
-          width: 90%; /* Or any width less than 100% */
-          margin-bottom: -11%;
-        }
-
         .historia-dialog {
             position: fixed;
             z-index: 1000;
@@ -546,6 +557,155 @@
             color: var(--terracota-escuro);
             cursor: pointer;
             font-weight: bold;
+        }
+
+        /* Carousel Styles */
+        .fotos-section {
+            background: var(--creme);
+            padding: 5rem 2rem;
+        }
+
+        .carousel-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            overflow: visible;
+            height: 600px;
+            width: 100%;
+        }
+
+        .carousel-slides {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-nav-btn {
+            background: var(--terracota-escuro);
+            color: var(--branco);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out 0s;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            z-index: 15;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        #prevBtn {
+            left: 10px;
+        }
+
+        #nextBtn {
+            right: 10px;
+        }
+
+        .carousel-nav-btn:hover {
+            background: var(--terracota-suave);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-slide {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 2s, height 1s, opacity 0.5s;
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            transform: scale(1);
+            width: 400px;
+            height: 500px;
+            z-index: 10;
+            visibility: visible;
+            position: relative;
+            pointer-events: auto;
+            left: auto;
+            right: auto;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .carousel-slide.active img {
+            box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(90, 58, 51, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            padding: 0;
+        }
+
+        .carousel-dot.active {
+            background: var(--terracota-escuro);
+            transform: scale(1.3);
+        }
+
+        @media (max-width: 768px) {
+            .carousel-wrapper {
+                height: 400px;
+            }
+
+            .carousel-nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            #prevBtn {
+                left: 5px;
+            }
+
+            #nextBtn {
+                right: 5px;
+            }
+
+            .carousel-slide.active {
+                width: 280px;
+                height: 350px;
+            }
         }
     </style>
 </head>
@@ -593,7 +753,7 @@
 <!-- Até o grande dia -->
 <section id="ate-o-grande-dia" style="background:var(--bege-claro);padding:4rem 2rem;">
     <div style="max-width:800px;margin:0 auto;text-align:center;">
-        <div id="countdown-ate-o-grande-dia" style="font-size:2.5rem;font-weight:bold;color:var(--terracota-escuro);margin:2rem 0;"></div>
+        <div id="countdown-ate-o-grande-dia" class="rounded-border" style="font-size:2.0rem;font-weight:bold;color:var(--terracota-escuro);margin:2rem 0;"></div>
         <p style="font-size:1.2rem;color:var(--marrom-texto);">Faltam poucos dias para celebrarmos juntos!</p>
     </div>
 </section>
@@ -624,14 +784,18 @@
     <h2 class="section-title">Informações do casamento</h2>
     <div class="info-container">
         <div class="info-card">
-            <div class="info-icon">🎩👗</div>
+            <div class="info-icon">
+                <img src="img/dresscode-icon.svg" alt="Ícone de traje">
+            </div>
             <h3>Traje</h3>
             <p class="info-time">Social</p>
             <p class="info-local">Cores Reservadas para<br>Padrinhos / Madrinhas</p>
             <p class="info-local-sub">Bege / Terracota</p>
         </div>
         <div class="info-card">
-            <div class="info-icon">🕐</div>
+            <div class="info-icon">
+                <img src="img/clock-icon.svg" alt="Ícone de traje">
+            </div>
             <h3>Cerimônia</h3>
             <p class="info-time">16:30</p>
             <p class="info-local">Clube das Nações</p>
@@ -640,7 +804,9 @@
             <a href="https://www.google.com/maps/place/Club+of+Nations/@-15.8090452,-47.8313545,17z/data=!3m1!4b1!4m6!3m5!1s0x935a234dc46153bd:0xee26ec3322f76b93!8m2!3d-15.8090452!4d-47.8313545!16s%2Fg%2F11bw21jpxp?entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-location">Ver no Mapa</a>
         </div>
         <div class="info-card">
-            <div class="info-icon">🍷</div>
+            <div class="info-icon">
+                <img src="img/glass-icon.svg" alt="Ícone de traje">
+            </div>
             <h3>Recepção</h3>
             <p class="info-time">18:00</p>
             <p class="info-local">Clube das Nações</p>
@@ -848,10 +1014,30 @@
             <h3>Lista de presentes</h3>
             <div class="qr-container">
                 <div class="qr-code" onclick="window.location.href='presentes.html';">
-                    <img src="img/present.png" alt="present" class="present-img">
+                    <img src="img/present-icon.svg" alt="present">
                 </div>
                 <p class="qr-text">Acesse nossa lista</p>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Fotos Carrossel -->
+<section class="fotos-section">
+    <h2 class="section-title">Alguns de nossos momentos</h2>
+    <div class="carousel-container">
+        <div class="carousel-wrapper">
+            <button class="carousel-nav-btn" id="prevBtn" onclick="prevSlide()">&#10094;</button>
+
+            <div class="carousel-slides" id="carouselSlides">
+                <!-- Slides serão adicionados dinamicamente via JS -->
+            </div>
+
+            <button class="carousel-nav-btn" id="nextBtn" onclick="nextSlide()">&#10095;</button>
+        </div>
+
+        <div class="carousel-indicators" id="carouselIndicators">
+            <!-- Indicadores serão adicionados dinamicamente via JS -->
         </div>
     </div>
 </section>
@@ -950,7 +1136,109 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeDialog();
         });
+
+        // Initialize Carousel
+        initCarousel();
     });
+
+    // Carousel functionality
+    const carouselPhotos = [
+        'img/foto1.jpg',
+        'img/foto2.jpg',
+        'img/foto3.jpg',
+        'img/foto4.jpg',
+        'img/foto5.jpg',
+        'img/foto6.jpg'
+    ];
+
+    let currentSlide = 0;
+    let autoplayInterval;
+
+    function initCarousel() {
+        renderSlides();
+        renderIndicators();
+        updateCarousel();
+        startAutoplay();
+    }
+
+    function renderSlides() {
+        const slidesContainer = document.getElementById('carouselSlides');
+        slidesContainer.innerHTML = '';
+
+        carouselPhotos.forEach((photo, index) => {
+            const slideDiv = document.createElement('div');
+            slideDiv.className = 'carousel-slide';
+            slideDiv.id = `slide-${index}`;
+
+            const img = document.createElement('img');
+            img.src = photo;
+            img.alt = `Foto ${index + 1}`;
+
+            slideDiv.appendChild(img);
+            slidesContainer.appendChild(slideDiv);
+        });
+    }
+
+    function renderIndicators() {
+        const indicatorsContainer = document.getElementById('carouselIndicators');
+        indicatorsContainer.innerHTML = '';
+
+        carouselPhotos.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.className = 'carousel-dot';
+            dot.onclick = () => goToSlide(index);
+            indicatorsContainer.appendChild(dot);
+        });
+    }
+
+    function updateCarousel() {
+        // Update slides
+        carouselPhotos.forEach((_, index) => {
+            const slide = document.getElementById(`slide-${index}`);
+            if (!slide) return;
+
+            slide.classList.remove('active');
+
+            if (index === currentSlide) {
+                slide.classList.add('active');
+            }
+        });
+
+        // Update indicators
+        document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % carouselPhotos.length;
+        updateCarousel();
+        resetAutoplay();
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + carouselPhotos.length) % carouselPhotos.length;
+        updateCarousel();
+        resetAutoplay();
+    }
+
+    function goToSlide(index) {
+        currentSlide = index;
+        updateCarousel();
+        resetAutoplay();
+    }
+
+    function startAutoplay() {
+        autoplayInterval = setInterval(() => {
+            currentSlide = (currentSlide + 1) % carouselPhotos.length;
+            updateCarousel();
+        }, 10000); // Muda a cada 10 segundos
+    }
+
+    function resetAutoplay() {
+        clearInterval(autoplayInterval);
+        startAutoplay();
+    }
 </script>
 </body>
 </html>
