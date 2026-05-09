@@ -50,8 +50,8 @@
     }
     .modal-content {
       background-color: #fff6f2;
-      margin: 10% auto;
-      padding: 20px 30px;
+      margin: 15% auto;
+      padding: 30px 30px;
       border-radius: 12px;
       width: 320px;
       text-align: center;
@@ -243,8 +243,11 @@
         <h3>Use o QR Code para o Pix</h3>
         <p><strong>Valor do presente:</strong> R$ <span id="valor-presente"></span></p>
         <img id="qr-pix-img" src="img/qrpix.png" alt="QR Code Pix" width="200" />
-        <p>Ou copie a chave Pix: <strong id="pix-key">032.306.111-79</strong></p>
-        <button onclick="window.open('https://link.mercadopago.com.br/casamentogife','_blank');">Ou pague no cartão<br>(somos taxados 5%)</button>
+        <button class="pix-button" onclick="copyPix(this)">
+          <span class="btn-text">Copie a chave Pix: <br><strong>032.306.111-79</strong></span>
+        </button>
+        <p>ou</p>
+        <button style="background-color: #F5E6D3;color: #A0522D;" onclick="window.open('https://link.mercadopago.com.br/casamentogife','_blank');"> Pague no cartão </button>
       </div>
     </div>
   <script>
@@ -259,6 +262,14 @@
 
     function fecharModal() {
       document.getElementById('modal-pix').style.display = 'none';
+    }
+
+    function copyPix() {
+      navigator.clipboard.writeText("03230611179").then(() => {
+        alert("Chave Pix copiada com sucesso!");
+      }).catch(err => {
+        console.error('Erro ao copiar: ', err);
+      });
     }
 
     window.onclick = function(event) {
