@@ -36,6 +36,168 @@
       top: 0;
     }
 
+    /* Menu Lateral (Sidebar) */
+    .sidebar {
+        position: fixed;
+        left: -250px;
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        background: linear-gradient(135deg, #a76647 0%, #e5d4c7 100%);
+        padding: 2rem 0;
+        z-index: 1000;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        overflow-y: auto;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .sidebar-close {
+        display: none;
+        position: absolute;
+        top: 1.5rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: var(--branco);
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .sidebar.active .sidebar-close {
+        display: block;
+    }
+
+    .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .sidebar-link {
+        display: block;
+        padding: 1rem 1.5rem;
+        color: var(--branco);
+        text-decoration: none;
+        transition: all 0.3s;
+        border-left: 4px solid transparent;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .sidebar-link:hover,
+    .sidebar-link.active {
+        background: rgba(255,255,255,0.1);
+        border-left-color: var(--branco);
+        padding-left: 2rem;
+    }
+
+    /* Botão Toggle do Menu */
+    .menu-toggle {
+        position: fixed;
+        bottom: 2rem;
+        left: 1.5rem;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #a76647;
+        border: none;
+        color: var(--branco);
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 999;
+        box-shadow: 0 4px 12px rgba(167, 102, 71, 0.3);
+        transition: all 0.3s;
+        display: none;
+    }
+
+    .menu-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(167, 102, 71, 0.4);
+    }
+
+    /* Desktop: Menu em tamanho reduzido à direita */
+    @media (min-width: 1024px) {
+        .sidebar {
+            position: fixed;
+            left: auto;
+            right: 0;
+            width: 200px;
+            left: unset;
+            height: auto;
+            max-height: 80vh;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 12px 0 0 12px;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            padding: 1.5rem 0;
+            overflow-y: auto;
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        .sidebar-close {
+            display: none;
+        }
+
+        .sidebar-link {
+            padding: 0.8rem 1.2rem;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            padding-left: 1.6rem;
+        }
+    }
+
+    /* Tablet */
+    @media (max-width: 1023px) {
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar {
+            left: -250px;
+        }
+
+        .sidebar-link {
+            padding: 1rem 1.5rem;
+        }
+
+        body.sidebar-open {
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            z-index: 999;
+        }
+
+        body.sidebar-open::before {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+
 
     /* Modal */
     .modal {
@@ -96,6 +258,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <body>
+  <!-- Menu Lateral -->
+  <aside class="sidebar" id="sidebar">
+      <button class="sidebar-close" id="sidebarClose">&times;</button>
+      <nav class="sidebar-nav">
+          <a href="index.html" class="sidebar-link">Página Principal</a>
+          <a href="#presentes" class="sidebar-link" data-section="#presentes">Presentes</a>
+      </nav>
+  </aside>
+
+  <!-- Botão Toggle do Menu (Mobile) -->
+  <button class="menu-toggle" id="menuToggle">☰</button>
+
   <header>
     <img src="img/logo-fg-marrom.svg" class="logo" alt="cafeteira" />
   </header>
@@ -106,8 +280,6 @@
 
   <section id="presentes" class="ativo">
     <h2>Lista de Presentes</h2>
-
-    <h3>Criamos uma lista fictícia de presentes para cada um escolher o valor que se sentir confortável!<br>Mas iremos receber a intenção de compra de cada um</h3>
     <div class="presentes-galeria">
       <div class="presente">
         <img src="img/faqueiro.jpg" alt="faqueiro" />
@@ -305,5 +477,63 @@
     });
   </script>
   <script src="scripts.js"></script>
+
+  <!-- Menu Lateral Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const body = document.body;
+
+        // Toggle sidebar on mobile
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            body.classList.toggle('sidebar-open');
+        });
+
+        // Close sidebar when close button is clicked
+        sidebarClose.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            body.classList.remove('sidebar-open');
+        });
+
+        // Close sidebar when a link is clicked
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                // Se for um link externo (index.html), deixa funcionar normalmente
+                if (href && href.endsWith('.html')) {
+                    sidebar.classList.remove('active');
+                    body.classList.remove('sidebar-open');
+                    return;
+                }
+
+                // Se for um link interno (ancorador)
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    
+                    // Fechar sidebar em mobile
+                    if (window.innerWidth < 1024) {
+                        sidebar.classList.remove('active');
+                        body.classList.remove('sidebar-open');
+                    }
+                }
+            });
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth < 1024) {
+                if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                    body.classList.remove('sidebar-open');
+                }
+            }
+        });
+    });
+  </script>
 </body>
 </html>
