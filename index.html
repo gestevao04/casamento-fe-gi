@@ -1049,171 +1049,6 @@
                 <button type="submit" class="btn-submit">Enviar</button>
             </form>
         </div>
-
-        <script>
-            // Lista de convidados (edite conforme necessário)
-            const invitedNames = [
-                'Fernanda Silva',
-                'Giordano Souza',
-                'Ana Pereira',
-                'João Oliveira',
-                'Mariana Costa',
-                'Carlos Eduardo',
-                'Patrícia Rocha'
-            ];
-
-            // Initialize autocomplete on page load
-            window.addEventListener('DOMContentLoaded', function() {
-                const inputEl = document.getElementById('nome');
-                const listEl = document.getElementById('autocomplete-list');
-                let selectedIndex = -1;
-
-                // Show suggestions while typing
-                inputEl.addEventListener('input', function() {
-                    const query = this.value.trim().toLowerCase();
-                    selectedIndex = -1;
-
-                    if (!query) {
-                        listEl.classList.remove('show');
-                        return;
-                    }
-
-                    // Filter names that contain the query
-                    const filtered = invitedNames.filter(name =>
-                        name.toLowerCase().includes(query)
-                    );
-
-                    // Render suggestions
-                    listEl.innerHTML = '';
-                    if (filtered.length === 0) {
-                        listEl.classList.remove('show');
-                        return;
-                    }
-
-                    filtered.forEach((name, index) => {
-                        const li = document.createElement('li');
-                        li.className = 'autocomplete-item';
-                        li.textContent = name;
-                        li.dataset.value = name;
-                        li.addEventListener('click', () => selectSuggestion(name));
-                        li.addEventListener('mouseenter', () => {
-                            document.querySelectorAll('.autocomplete-item').forEach(el => el.classList.remove('selected'));
-                            li.classList.add('selected');
-                            selectedIndex = index;
-                        });
-                        listEl.appendChild(li);
-                    });
-
-                    listEl.classList.add('show');
-                });
-
-                // Handle keyboard navigation (arrow up/down, enter, escape)
-                inputEl.addEventListener('keydown', function(e) {
-                    const items = document.querySelectorAll('.autocomplete-item');
-
-                    if (e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        selectedIndex = (selectedIndex + 1) % items.length;
-                        updateSelected(items);
-                    } else if (e.key === 'ArrowUp') {
-                        e.preventDefault();
-                        selectedIndex = selectedIndex <= 0 ? items.length - 1 : selectedIndex - 1;
-                        updateSelected(items);
-                    } else if (e.key === 'Enter') {
-                        e.preventDefault();
-                        if (selectedIndex >= 0 && items[selectedIndex]) {
-                            selectSuggestion(items[selectedIndex].dataset.value);
-                        }
-                    } else if (e.key === 'Escape') {
-                        listEl.classList.remove('show');
-                    }
-                });
-
-                function updateSelected(items) {
-                    items.forEach(el => el.classList.remove('selected'));
-                    if (selectedIndex >= 0 && items[selectedIndex]) {
-                        items[selectedIndex].classList.add('selected');
-                        items[selectedIndex].scrollIntoView({ block: 'nearest' });
-                    }
-                }
-
-                function selectSuggestion(name) {
-                    inputEl.value = name;
-                    listEl.classList.remove('show');
-                    selectedIndex = -1;
-                }
-
-                // Hide suggestions when clicking outside
-                document.addEventListener('click', function(e) {
-                    if (!e.target.closest('.autocomplete-container')) {
-                        listEl.classList.remove('show');
-                    }
-                });
-            });
-
-            document.getElementById('rsvpForm').addEventListener('submit', function(e) {
-              e.preventDefault();
-
-              const nameEl = document.getElementById('nome');
-              const recadoEl = document.getElementById('recado');
-
-              const rawName = (nameEl && nameEl.value) ? nameEl.value.trim() : '';
-
-              // Validate presence
-              if (!rawName) {
-                const alertMessage = document.getElementById('alertMessage');
-                alertMessage.textContent = 'Por favor, digite seu nome para confirmar.';
-                alertMessage.classList.add('show');
-                setTimeout(() => alertMessage.classList.remove('show'), 5000);
-                return;
-              }
-
-              // Check if name exists in invited list (exact match)
-              const matched = invitedNames.includes(rawName);
-
-              if (!matched) {
-                const alertMessage = document.getElementById('alertMessage');
-                alertMessage.textContent = 'Por favor, selecione um nome válido da lista.';
-                alertMessage.classList.add('show');
-                setTimeout(() => alertMessage.classList.remove('show'), 5000);
-                return;
-              }
-
-              // If matched, proceed to send data
-              const data = {
-                nome: rawName,
-                recado: recadoEl ? recadoEl.value : ''
-              };
-
-              fetch('https://script.google.com/macros/s/AKfycbw-zgjKvRLZkPmZtlN5R2QydsuTnThsZ3GQgV9_JK94Gq6GYKFT6fmPGKJa4zYW9SMmpw/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-              })
-              .then(() => {
-                const successMessage = document.getElementById('successMessage');
-                successMessage.textContent = 'Confirmação enviada com sucesso! Obrigado! 💖';
-                successMessage.classList.add('show');
-                this.reset();
-
-                // Esconder mensagem após 5 segundos
-                setTimeout(() => {
-                    successMessage.classList.remove('show');
-                }, 5000);
-              })
-              .catch(() => {
-                const alertMessage = document.getElementById('alertMessage');
-                alertMessage.textContent = 'Erro ao enviar. Tente novamente mais tarde.';
-                alertMessage.classList.add('show');
-
-                // Esconder mensagem após 5 segundos
-                setTimeout(() => {
-                    alertMessage.classList.remove('show');
-                }, 5000);
-              });
-            });
-         </script>
     </div>
 </section>
 
@@ -1512,6 +1347,418 @@
                 }
             });
         }
+    });
+
+    // Lista de convidados
+    const invitedNames = [
+        'Adalberto Migliorini',
+        'Adriana Maia Pinto Ishihara',
+        'Adriane Correia',
+        'Adroaldo Juliani',
+        'Alcione Tristão de Castro',
+        'Alessandra Maia Freire',
+        'Alexandre Mariz Maia',
+        'Alexandre Simões',
+        'Allann Gois Hoffmann',
+        'Alvaro Vieira',
+        'Amanda Silva',
+        'Ana Carolina Ribeiro',
+        'Ana Clara Cavalcante',
+        'Ana Migliorini',
+        'Ana Padilha',
+        'Ana Paula Valle',
+        'Anderson Júnior',
+        'André Hessman Schuller',
+        'Andre Mariz Maia',
+        'Anelise de Carvalho Pulshen',
+        'Ângela Poletto',
+        'Angelica Fernandes Dubra',
+        'Anna Clara Soares',
+        'Anna Paula Barros',
+        'Antônia Freire Pereira',
+        'Antonio Migliorini',
+        'Ariadne Bogo',
+        'Arthur Meireles',
+        'Artur Rodrigues',
+        'Atrio Souza',
+        'Augusto Hessman Schuller',
+        'Bárbara Beatriz Maia',
+        'Bárbara Helen',
+        'Beatriz Teresa R. Maia Pinto',
+        'Benjamin Maia',
+        'Benone Belli',
+        'Bernardo Aragão',
+        'Bernardo Migliorini',
+        'Brenda Grisi',
+        'Bruna Costa',
+        'Bruna Regina Santos Vieira',
+        'Bruno Franca',
+        'Bruno Gomes',
+        'Bruno Leitão',
+        'Cacaio Labarthe',
+        'Caetano Pereira Lima',
+        'Caio Barros',
+        'Caio Roberto Costa Caldas',
+        'Caio Victor Santos',
+        'Camila Maia Freire',
+        'Carlos Alberto Santos',
+        'Carol Viecili',
+        'Caroline Hessman Schuller',
+        'Celestina Tonial',
+        'Chris Corlett',
+        'Christano Osorio',
+        'Claudia Lopes Ribeiro Rizzo',
+        'Claudia Maciel',
+        'Claudia Migliorini',
+        'Claudia Tomazi',
+        'Cleusa Migliorini',
+        'Cristina Carneiro',
+        'Dalva Migliorini',
+        'Daniel Caldas',
+        'Daniel Maia',
+        'Daniel Vieira Rodrigues',
+        'Daniela Benjamin',
+        'Danielle Cravo',
+        'David Brussolo',
+        'Debora Mariz Maia',
+        'Deborah Correia',
+        'Denis  de Souza Pinto',
+        'Deyvison Lopes',
+        'Diana Maria Zenni',
+        'Diva Migliorini',
+        'Domingos Dubra',
+        'Eda Maria Zenni',
+        'Edgar Migliorini',
+        'Edite Zenni Estevão',
+        'Eduarda Gravia',
+        'Eduarda Matos de Lopes',
+        'Eduarda Proença',
+        'Eduardo Lisboa Freire',
+        'Eduardo Sigaldi',
+        'Eric Suguieda',
+        'Fabíola Testi',
+        'Fabricio Migliorini',
+        'Fellipe Borges',
+        'Fernanda Bittencourt',
+        'Fernanda Maia Freire',
+        'Fernanda Santos',
+        'Francisco Quadra',
+        'Gabriel Elias',
+        'Gabriel Freire Talarico',
+        'Gabriel Simoes',
+        'Gabriela Barreto',
+        'Gabriela Belluzzo Maia',
+        'Gabriela Cunha Cardozo Oliveira',
+        'Gabriela Hessman Estevão',
+        'Gabriela Honorato',
+        'Gabriela Menezes',
+        'Gabriela Ormezzano',
+        'Gabriela Porto',
+        'Gabriella Pinheiro Freire',
+        'Gabrielle Bernardon',
+        'Giancarlo Migliorini Purper',
+        'Giordano Migliorini Estevao',
+        'Giovani Migliorini',
+        'Giovanna Batista',
+        'Giovanna de Almeida Pinto',
+        'Gisela Brussolo',
+        'Giselle Bernardon',
+        'Giulia Migliorini Estevão',
+        'Guilherme Porto',
+        'Guilherme Viecili',
+        'Hadla Hamid',
+        'Helena Alckmin',
+        'Helena Fernandes Dubra',
+        'Helena Mitsue',
+        'Henrique Lucchesi',
+        'Herbert Garcia',
+        'Honecina Castro',
+        'Inês Garcia Pinto',
+        'Isabel Alves',
+        'Isabela Maia Pinto Freire',
+        'Isabela Marinho',
+        'Isabella Amorim',
+        'Ismael Tonial',
+        'Ivan Bazo Bergamim',
+        'Jacinta Tonial',
+        'Jan Groeschel',
+        'João Alves Costa Filho',
+        'João Borges',
+        'João Carlos (Cal)',
+        'João Luis Hessman Estevão',
+        'João Paulo Alckmin',
+        'Joâo Paulo Oliveira',
+        'João Paulo Ortega Terra',
+        'João Pedro Pacheco',
+        'João Vitor Loureiro',
+        'Jonas Yamashita',
+        'José Augusto Alckmin',
+        'José Eduardo Lindoso',
+        'Jose Matheus Felipe',
+        'José Olivo Zenni',
+        'José Paulo Lacerda',
+        'Júlia Namie Maia Pinto Ishihara',
+        'Julia Nogueira',
+        'Juliana Maia Pinto Alves',
+        'Karina Migliorini',
+        'Kitty De Conto',
+        'Laura Alckmin',
+        'Leandro Barros',
+        'Leandro Zenni Estevão',
+        'Leonardo Lima',
+        'Leonardo Santos',
+        'Leticia Guedes',
+        'Lidiane Pereira da Silva',
+        'Lino Migliorini',
+        'Liziane Estevão',
+        'Luca Augusto',
+        'Lucas Barros',
+        'Lucas de Avellar',
+        'Lucas Maia',
+        'Lucas Mangia',
+        'Lucas Scaffuto',
+        'Lucia Zenni',
+        'Luciana Ribas',
+        'Luciano Mariz Maia',
+        'Luciano R. Maia Pinto',
+        'Luis Guilherme Frejat',
+        'Luisa Canuto',
+        'Luisa Maia Alves Germano Dias',
+        'Luiz Antonio Zenni',
+        'Luiz Artur Zenni Lopes',
+        'Luiza Coe',
+        'Luiza Hessman Schuller',
+        'Manuel Ruiz',
+        'Mara Luiza Salomão Zenni',
+        'Marcela Cortez',
+        'Marcelo Rodrigues Maia Pinto',
+        'Marcia Juliani',
+        'Marcia Labarthe',
+        'Marco Antônio Freire Talarico',
+        'Marcos Brito Devoto',
+        'Marcos Fleming Balieiro Alves',
+        'Maria Cláudia Belluzzo Maia',
+        'Maria do Carmo de Souza Pinto',
+        'Maria Eduarda Lopes Ribeiro',
+        'Mariana Barros',
+        'Mariana Moura',
+        'Mariana Oliveira',
+        'Marina Doyle Torres Meyer',
+        'Marina Feres',
+        'Mariza Sigaldi',
+        'Mateus Cruvinel',
+        'Matheus Gabriel',
+        'Matias Almeida',
+        'Matthew Lima',
+        'Mauro Vieira',
+        'Miriam Viecili',
+        'Murilo Salomão',
+        'Nathália Hentges',
+        'Nathalia Valladão',
+        'Nina Maciel',
+        'Nivaldo Ignácio',
+        'Ohana Tiscoski',
+        'Otavio Cançado',
+        'Otávio Maia',
+        'Otavio Migliorini',
+        'Paloma Pereira Lima',
+        'Pamela Nogueira',
+        'Patrícia Lisboa Freire',
+        'Paulo Dal Paz',
+        'Paulo Rizzo',
+        'Paulo Roberto Ribas',
+        'Pedro Lento',
+        'Pedro Reis',
+        'Rafael Freire',
+        'Rafael Maia',
+        'Rafaella Bittencourt',
+        'Renata Rodrigues Maia Pinto',
+        'Renato Strohmeyer',
+        'Ricardo Cassiano',
+        'Ricardo Zenni',
+        'Rodolfo Rumpf',
+        'Rodrigo Peixoto',
+        'Rogério Lacerda',
+        'Rosana Alckmin',
+        'Rose Maia',
+        'Rose Monnerat ',
+        'Ryu Iwakami',
+        'Sara Bianca Fonseca',
+        'Sérgio Lisboa Freire',
+        'Silas Lindemberg',
+        'Silvana Cristina',
+        'Simone Lisboa Freire',
+        'Sofia Emy Maia Pinto Ishihara',
+        'Sofia Guerra',
+        'Sônia Lisbôa Freire',
+        'Stella Faco',
+        'Sueli Lacerda',
+        'Teresa Caldeira Costa',
+        'Teresa Migliorini Estevão',
+        'Teresinha Migliorini',
+        'Thales Godoy',
+        'Thalita Valle',
+        'Vanessa Camargo',
+        'Victor Alves',
+        'Victor Bryto Borges',
+        'Victor Fondello',
+        'Victor Simpson',
+        'Vitória Maciel',
+        'Walter Menezes',
+        'Yasmin Graeml',
+        'Zenaide Maia'
+    ];
+
+    // Initialize autocomplete on page load
+    window.addEventListener('DOMContentLoaded', function() {
+        const inputEl = document.getElementById('nome');
+        const listEl = document.getElementById('autocomplete-list');
+        let selectedIndex = -1;
+
+        // Show suggestions while typing
+        inputEl.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            selectedIndex = -1;
+
+            if (!query) {
+                listEl.classList.remove('show');
+                return;
+            }
+
+            // Filter names that contain the query
+            const filtered = invitedNames.filter(name =>
+                name.toLowerCase().includes(query)
+            );
+
+            // Render suggestions
+            listEl.innerHTML = '';
+            if (filtered.length === 0) {
+                listEl.classList.remove('show');
+                return;
+            }
+
+            filtered.forEach((name, index) => {
+                const li = document.createElement('li');
+                li.className = 'autocomplete-item';
+                li.textContent = name;
+                li.dataset.value = name;
+                li.addEventListener('click', () => selectSuggestion(name));
+                li.addEventListener('mouseenter', () => {
+                    document.querySelectorAll('.autocomplete-item').forEach(el => el.classList.remove('selected'));
+                    li.classList.add('selected');
+                    selectedIndex = index;
+                });
+                listEl.appendChild(li);
+            });
+
+            listEl.classList.add('show');
+        });
+
+        // Handle keyboard navigation (arrow up/down, enter, escape)
+        inputEl.addEventListener('keydown', function(e) {
+            const items = document.querySelectorAll('.autocomplete-item');
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedIndex = (selectedIndex + 1) % items.length;
+                updateSelected(items);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedIndex = selectedIndex <= 0 ? items.length - 1 : selectedIndex - 1;
+                updateSelected(items);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (selectedIndex >= 0 && items[selectedIndex]) {
+                    selectSuggestion(items[selectedIndex].dataset.value);
+                }
+            } else if (e.key === 'Escape') {
+                listEl.classList.remove('show');
+            }
+        });
+
+        function updateSelected(items) {
+            items.forEach(el => el.classList.remove('selected'));
+            if (selectedIndex >= 0 && items[selectedIndex]) {
+                items[selectedIndex].classList.add('selected');
+                items[selectedIndex].scrollIntoView({ block: 'nearest' });
+            }
+        }
+
+        function selectSuggestion(name) {
+            inputEl.value = name;
+            listEl.classList.remove('show');
+            selectedIndex = -1;
+        }
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.autocomplete-container')) {
+                listEl.classList.remove('show');
+            }
+        });
+    });
+
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nameEl = document.getElementById('nome');
+      const recadoEl = document.getElementById('recado');
+
+      const rawName = (nameEl && nameEl.value) ? nameEl.value.trim() : '';
+
+      // Validate presence
+      if (!rawName) {
+        const alertMessage = document.getElementById('alertMessage');
+        alertMessage.textContent = 'Por favor, digite seu nome para confirmar.';
+        alertMessage.classList.add('show');
+        setTimeout(() => alertMessage.classList.remove('show'), 5000);
+        return;
+      }
+
+      // Check if name exists in invited list (exact match)
+      const matched = invitedNames.includes(rawName);
+
+      if (!matched) {
+        const alertMessage = document.getElementById('alertMessage');
+        alertMessage.textContent = 'Por favor, selecione um nome válido da lista.';
+        alertMessage.classList.add('show');
+        setTimeout(() => alertMessage.classList.remove('show'), 5000);
+        return;
+      }
+
+      // If matched, proceed to send data
+      const data = {
+        nome: rawName,
+        recado: recadoEl ? recadoEl.value : ''
+      };
+
+      fetch('https://script.google.com/macros/s/AKfycbw-zgjKvRLZkPmZtlN5R2QydsuTnThsZ3GQgV9_JK94Gq6GYKFT6fmPGKJa4zYW9SMmpw/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        const successMessage = document.getElementById('successMessage');
+        successMessage.textContent = 'Confirmação enviada com sucesso! Obrigado! 💖';
+        successMessage.classList.add('show');
+        this.reset();
+
+        // Esconder mensagem após 5 segundos
+        setTimeout(() => {
+            successMessage.classList.remove('show');
+        }, 5000);
+      })
+      .catch(() => {
+        const alertMessage = document.getElementById('alertMessage');
+        alertMessage.textContent = 'Erro ao enviar. Tente novamente mais tarde.';
+        alertMessage.classList.add('show');
+
+        // Esconder mensagem após 5 segundos
+        setTimeout(() => {
+            alertMessage.classList.remove('show');
+        }, 5000);
+      });
     });
 </script>
 </body>
